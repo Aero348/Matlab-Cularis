@@ -21,7 +21,7 @@ D0     = %
 alpha0 = %[rad]
 beta0  = %
 L0     = %
-T0     = %
+T0     =  %
 
 m(q0*w0-r0*v0) = -m*g*sin(theta0)-D0*cos(alpha0)*cos(beta0) + L0*sin(
 
