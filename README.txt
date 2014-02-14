@@ -1,0 +1,1 @@
+No idea what the '.git' folder is so just don't touch it
