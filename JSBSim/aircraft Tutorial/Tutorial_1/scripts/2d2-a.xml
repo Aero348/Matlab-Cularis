@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<?xml-stylesheet type="text/xsl" href="http://jsbsim.sf.net/JSBSimScript.xsl"?>
+<runscript xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="http://jsbsim.sf.net/JSBSimScript.xsd"
+    name="FAA AC 120-40B Test 2d2-a">
+
+  <description>
+    FAA test 2d2-a - Roll Response
+    Trimmed at altitude/airspeed/bank angle, aileron input
+
+      Author:
+    Bill Galbraith
+    Holy Cows, Inc.
+    billg@holycows.net
+    November 2010
+  </description>
+
+  <use aircraft="Tutorial_1" initialize="scripts/2d2-a_init"/> 
+  <run start="0" end="9.5" dt="0.00833333">
+
+    <!-- Trim in a turn -->
+    <event name="Trim">
+      <condition> simulation/sim-time-sec ge 0.0 </condition>
+      <set name="simulation/do_simple_trim" value="5"/>
+    </event>
+
+    <event name="Time Notify" continuous="true">
+      <description>Provide a time history input for the aileron</description>
+      <condition> simulation/sim-time-sec ge 0 </condition>
+      <set name="fcs/aileron-cmd-norm" >
+          <function>
+          <table>
+            <independentVar lookup="row">simulation/sim-time-sec</independentVar>
+            <tableData>
+               0.0     0.0
+               5.2     0.0
+               6.6     0.2
+              10.0     0.2
+            </tableData>
+          </table>
+        </function>  
+      </set>
+    </event>
+
+  </run>
+
+</runscript>

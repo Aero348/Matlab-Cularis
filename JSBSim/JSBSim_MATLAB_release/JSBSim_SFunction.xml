@@ -1,0 +1,1814 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        "JSBSim_SFunction"
+    </assembly>
+    <members>
+        <member name="F:JSBSim.FGState.sim_time">
+Prints a summary of simulator state (speed, altitude,
+      configuration, etc.)  
+</member>
+        <member name="M:JSBSim.FGState.IncrTime">
+Increments the simulation time.
+      @return the new simulation time.     
+</member>
+        <member name="M:JSBSim.FGState.Setdt(System.Double)">
+Sets the integration time step for the simulation executive.
+      @param delta_t the time step in seconds.     
+</member>
+        <member name="M:JSBSim.FGState.Setsim_time(System.Double)">
+Sets the current sim time.
+      @param cur_time the current time
+      @return the current simulation time.      
+</member>
+        <member name="M:JSBSim.FGState.IntegrationSuspended">
+Returns the simulation suspension state.
+      @return true if suspended, false if executing  
+</member>
+        <member name="M:JSBSim.FGState.ResumeIntegration">
+Resumes the simulation by resetting delta T to the correct value.
+</member>
+        <member name="M:JSBSim.FGState.SuspendIntegration">
+Suspends the simulation and sets the delta T to zero.
+</member>
+        <member name="M:JSBSim.FGState.Getdt">
+Returns the simulation delta T.
+</member>
+        <member name="M:JSBSim.FGState.Getsim_time">
+Returns the cumulative simulation time in seconds.
+</member>
+        <member name="M:JSBSim.FGState.Initialize(JSBSim.FGInitialCondition*)">
+Initializes the simulation state based on parameters from an Initial Conditions object.
+      @param FGIC pointer to an initial conditions object.
+      @see FGInitialConditions.    
+</member>
+        <member name="M:JSBSim.FGState.Dispose">
+Destructor
+</member>
+        <member name="M:JSBSim.FGState.#ctor(JSBSim.FGFDMExec*)">
+Constructor
+      @param Executive a pointer to the parent executive object 
+</member>
+        <member name="T:JSBSim.FGState">
+Encapsulates the calculation of aircraft state.
+    <h3>Properties</h3>
+    @property sim-time-sec (read only) cumulative simulation in seconds.
+    @author Jon S. Berndt
+    @version $Revision: 1.13 $
+
+</member>
+        <member name="M:mclSetCmdLineUserData(System.Int32!System.Runtime.CompilerServices.IsLong,System.Int32,System.SByte!System.Runtime.CompilerServices.IsSignUnspecifiedByte!System.Runtime.CompilerServices.IsConst**)">
+Users may pass MCR instance data to compiled applications on the 
+ * command line, using the -mcruserdata switch:
+ *
+ *    % myapp -mcruserdata "DCTConfigFile:/home/pwebb/config.txt"
+ *
+ * Modifies the input argv to remove the -mcruserdata switches and the
+ * argument that follows each such switch.
+ *
+ * @param mcrID The ID of the MCR instance. If -1, the current MCR 
+ * (mcrInstance::GetMCR())is used. 
+ * @param argc The number of arguments passed on the command line.
+ * @param argv The array of command line arguments.
+ * @return The number of values left to process in the argv array.
+
+</member>
+        <member name="M:mclGetMCRUserData(System.Int32!System.Runtime.CompilerServices.IsLong,System.SByte!System.Runtime.CompilerServices.IsSignUnspecifiedByte!System.Runtime.CompilerServices.IsConst*)">
+Retreive the data associated with a given key from the instance data
+ * map of the given MCR.
+ *
+ * @param mcr The ID of the MCR instance. If -1, the current MCR 
+ * (mcrInstance::GetMCR())is used. 
+ * @param key The string key under which the value was stored.
+ * @return The mxArray associated with the given key and MCR instance. NULL if
+ * no such key exists in this MCR's instance data map.
+
+</member>
+        <member name="M:mclSetMCRUserData(System.Int32!System.Runtime.CompilerServices.IsLong,System.SByte!System.Runtime.CompilerServices.IsSignUnspecifiedByte!System.Runtime.CompilerServices.IsConst*,mxArray_tag*)">
+Associate an mxArray value with a string key and a specific MCR instance.
+ *
+ * @param mcr The ID of the MCR instance. Must be used to retrieve this value. 
+ * If -1, the current MCR is used. (Current is the value returned by 
+ * mcrInstance::GetMCR())
+ * @param key The string key under later used to look up the value.
+ * @param value An arbitrary mxArray.
+ * @return TRUE if the value was set into the MCR's instance data map.
+
+</member>
+        <member name="M:mclLoadCtfToComponentData(System.SByte!System.Runtime.CompilerServices.IsSignUnspecifiedByte!System.Runtime.CompilerServices.IsConst*,=FUNC:System.Int32(System.SByte!System.Runtime.CompilerServices.IsSignUnspecifiedByte!System.Runtime.CompilerServices.IsConst*),=FUNC:System.Int32(System.SByte!System.Runtime.CompilerServices.IsSignUnspecifiedByte!System.Runtime.CompilerServices.IsConst*))">
+@brief Read ctf manifest file from ctf archive and load it into component data structure
+@param ctfPath full path to ctf file
+@param error_handler error handler function
+@param print_handler print handler function
+@return pointer to mclComponentData structure if succeed, otherwise NULL
+@author Stuart McMillan
+
+</member>
+        <member name="T:mclOutputHandlerBase">
+Abstract base class for output handler adapter classes.
+
+</member>
+        <member name="T:mclOutputHandler_struct">
+Represents an output function.
+
+</member>
+        <member name="T:mclOutputHandler_methods_struct">
+Defines the interface for a stateful text output function.
+
+</member>
+        <member name="D:mclOutputHandlerFcn">
+C style puts function pointer
+
+</member>
+        <member name="M:JSBSimInterface.RunFDMExec">
+put the 16 dotted quantities into statedot:
+</member>
+        <member name="M:JSBSimInterface.ResetToInitialCondition">
+Set an initial state
+</member>
+        <member name="M:JSBSimInterface.PrintCatalog">
+Print the aircraft catalog
+</member>
+        <member name="M:JSBSimInterface.QueryJSBSimProperty(std.basic_string&lt;System.SByte!System.Runtime.CompilerServices.IsSignUnspecifiedByte,std.char_traits{System.SByte!System.Runtime.CompilerServices.IsSignUnspecifiedByte},std.allocator&lt;System.SByte!System.Runtime.CompilerServices.IsSignUnspecifiedByte&gt;&gt;)">
+Check if the given string is present in the catalog
+</member>
+        <member name="M:JSBSimInterface.EasySetValue(std.basic_string&lt;System.SByte!System.Runtime.CompilerServices.IsSignUnspecifiedByte,std.char_traits{System.SByte!System.Runtime.CompilerServices.IsSignUnspecifiedByte},std.allocator&lt;System.SByte!System.Runtime.CompilerServices.IsSignUnspecifiedByte&gt;&gt;!System.Runtime.CompilerServices.IsConst,System.Double!System.Runtime.CompilerServices.IsConst)">
+Enables a number of commonly used settings
+</member>
+        <member name="M:JSBSimInterface.SetPropertyValue(std.basic_string&lt;System.SByte!System.Runtime.CompilerServices.IsSignUnspecifiedByte,std.char_traits{System.SByte!System.Runtime.CompilerServices.IsSignUnspecifiedByte},std.allocator&lt;System.SByte!System.Runtime.CompilerServices.IsSignUnspecifiedByte&gt;&gt;!System.Runtime.CompilerServices.IsConst,System.Double!System.Runtime.CompilerServices.IsConst)">
+Set a property in the catalog
+</member>
+        <member name="M:JSBSimInterface.SetPropertyValue(mxArray_tag!System.Runtime.CompilerServices.IsConst*,mxArray_tag!System.Runtime.CompilerServices.IsConst*)">
+Set a property in the catalog
+</member>
+        <member name="M:JSBSimInterface.GetPropertyValue(mxArray_tag!System.Runtime.CompilerServices.IsConst*,System.Double*!System.Runtime.CompilerServices.IsImplicitlyDereferenced)">
+Get a property from the catalog
+</member>
+        <member name="M:JSBSimInterface.Open(std.basic_string&lt;System.SByte!System.Runtime.CompilerServices.IsSignUnspecifiedByte,std.char_traits{System.SByte!System.Runtime.CompilerServices.IsSignUnspecifiedByte},std.allocator&lt;System.SByte!System.Runtime.CompilerServices.IsSignUnspecifiedByte&gt;&gt;)">
+Open an aircraft model from Matlab
+</member>
+        <member name="M:JSBSim.FGMassBalance.StructuralToBody(JSBSim.FGColumnVector3!System.Runtime.CompilerServices.IsConst*!System.Runtime.CompilerServices.IsImplicitlyDereferenced)">
+Conversion from the structural frame to the body frame.
+      Converts the location given in the structural frame
+      coordinate system to the body frame. The units of the structural
+      frame are assumed to be in inches. The unit of the result is in
+      ft.
+      @param r vector coordinate in the structural reference frame (X positive
+               aft, measurements in inches).
+      @return vector coordinate in the body frame, in feet.
+
+</member>
+        <member name="M:JSBSim.FGMassBalance.GetPointmassInertia(System.Double,JSBSim.FGColumnVector3!System.Runtime.CompilerServices.IsConst*!System.Runtime.CompilerServices.IsImplicitlyDereferenced)">
+Computes the inertia contribution of a pointmass.
+      Computes and returns the inertia matrix of a pointmass of mass
+      slugs at the given vector r in the structural frame. The units
+      should be for the mass in slug and the vector in the structural
+      frame as usual in inches.
+      @param slugs the mass of this single pointmass given in slugs
+      @param r the location of this single pointmass in the structural frame
+
+</member>
+        <member name="M:JSBSim.FGAircraft.Getcbar">
+Gets the average wing chord
+</member>
+        <member name="M:JSBSim.FGAircraft.GetWingSpan">
+Gets the wing span
+</member>
+        <member name="M:JSBSim.FGAircraft.GetWingArea">
+Gets the wing area
+</member>
+        <member name="M:JSBSim.FGAircraft.GetAircraftName">
+Gets the aircraft name
+      @return the name of the aircraft as a string type 
+</member>
+        <member name="M:JSBSim.FGAircraft.Load(JSBSim.Element*)">
+Loads the aircraft.
+      The executive calls this method to load the aircraft into JSBSim.
+      @param el a pointer to the element tree
+      @return true if successful 
+</member>
+        <member name="M:JSBSim.FGAircraft.Run">
+Runs the Aircraft model; called by the Executive
+      @see JSBSim.cpp documentation
+      @return false if no error 
+</member>
+        <member name="M:JSBSim.FGAircraft.Dispose">
+Destructor
+</member>
+        <member name="M:JSBSim.FGAircraft.#ctor(JSBSim.FGFDMExec*)">
+Constructor
+      @param Executive a pointer to the parent executive object 
+</member>
+        <member name="T:JSBSim.FGParameter">
+Represents various types of parameters.
+      @author Jon Berndt
+
+</member>
+        <member name="M:JSBSim.FGThruster.Dispose">
+Destructor
+</member>
+        <member name="M:JSBSim.FGThruster.#ctor(JSBSim.FGFDMExec*,JSBSim.Element*,System.Int32)">
+Constructor
+</member>
+        <member name="T:JSBSim.FGThruster">
+Base class for specific thrusting devices such as propellers, nozzles, etc.
+
+<h3>reverser angle:</h3>
+
+    "Reverser angle" as used here is a way to manipulate the thrust vector,
+    along the thrust axis ONLY, during run time.  This should not be confused
+    with a thrust vectoring nozzle.  The angle is defined in radians, and is
+    used thus:  Final_thrust = cosine( reverser_angle ) * unmodified_thrust.  
+    Therefore a reverser angle of 0 results in no change, and a reverser angle
+    of 3.14 (pi) results in a completely reversed thrust vector.  An angle of
+    1.57 (pi/2) results in no thrust at all.
+ 
+    @author Jon Berndt
+    @version $Id: FGThruster.h,v 1.12 2008/12/30 12:19:26 jberndt Exp $
+
+</member>
+        <member name="M:JSBSim.FGForce.SetActingLocation(System.Double,System.Double,System.Double)">
+Acting point of application.
+      JSBsim structural coords used (inches, x +back, y +right, z +up).
+      This function sets the point at which the force acts - this may
+      not be the same as where the object resides. One area where this
+      is true is P-Factor modeling.
+      @param x acting location of force
+      @param y acting location of force
+      @param z acting location of force    
+</member>
+        <member name="M:JSBSim.FGForce.Dispose">
+Destructor
+</member>
+        <member name="M:JSBSim.FGForce.#ctor(JSBSim.FGFDMExec*)">
+Constructor
+</member>
+        <member name="M:JSBSim.op_RightShift(std.basic_istream&lt;System.SByte!System.Runtime.CompilerServices.IsSignUnspecifiedByte,std.char_traits{System.SByte!System.Runtime.CompilerServices.IsSignUnspecifiedByte}&gt;*!System.Runtime.CompilerServices.IsImplicitlyDereferenced,JSBSim.FGMatrix33*!System.Runtime.CompilerServices.IsImplicitlyDereferenced)">
+Read matrix from a stream.
+
+    @param os Stream to read from.
+    @param M Matrix to initialize with the values from the stream.
+
+    Read matrix from a stream.
+
+</member>
+        <member name="M:JSBSim.op_LeftShift(std.basic_ostream&lt;System.SByte!System.Runtime.CompilerServices.IsSignUnspecifiedByte,std.char_traits{System.SByte!System.Runtime.CompilerServices.IsSignUnspecifiedByte}&gt;*!System.Runtime.CompilerServices.IsImplicitlyDereferenced,JSBSim.FGMatrix33!System.Runtime.CompilerServices.IsConst*!System.Runtime.CompilerServices.IsImplicitlyDereferenced)">
+Write matrix to a stream.
+
+    @param os Stream to write to.
+    @param M Matrix to write.
+
+    Write the matrix to a stream.
+
+</member>
+        <member name="M:JSBSim.op_Multiply(System.Double,JSBSim.FGMatrix33!System.Runtime.CompilerServices.IsConst*!System.Runtime.CompilerServices.IsImplicitlyDereferenced)">
+Scalar multiplication.
+
+    @param scalar scalar value to multiply with.
+    @param A Matrix to multiply.
+
+    Multiply the Matrix with a scalar value.
+
+</member>
+        <member name="M:JSBSim.FGMatrix33.op_DivisionAssignment(System.Double!System.Runtime.CompilerServices.IsConst)">
+In place matrix scale.
+
+      @param scalar scalar value to divide through.
+      @return reference to the current matrix.
+
+      Compute the product of the current matrix and the scalar value
+      1.0/scalar, where scalar is given in the argument.
+
+</member>
+        <member name="M:JSBSim.FGMatrix33.op_MultiplicationAssignment(System.Double!System.Runtime.CompilerServices.IsConst)">
+In place matrix scale.
+
+      @param scalar scalar value to multiply with.
+      @return reference to the current matrix.
+
+      Compute the product of the current matrix and the scalar value scalar
+      given in the argument.
+
+</member>
+        <member name="M:JSBSim.FGMatrix33.op_MultiplicationAssignment(JSBSim.FGMatrix33!System.Runtime.CompilerServices.IsConst*!System.Runtime.CompilerServices.IsImplicitlyDereferenced)">
+In place matrix multiplication.
+
+      @param B matrix to multiply with.
+      @return reference to the current matrix.
+
+      Compute the product of the current matrix and the matrix B
+      given in the argument.
+
+</member>
+        <member name="M:JSBSim.FGMatrix33.op_AdditionAssignment(JSBSim.FGMatrix33!System.Runtime.CompilerServices.IsConst*!System.Runtime.CompilerServices.IsImplicitlyDereferenced)">
+In place matrix addition.
+
+      @param B matrix to add.
+      @return reference to the current matrix.
+
+      Compute the sum of the current matrix and the matrix B
+      given in the argument.
+
+</member>
+        <member name="M:JSBSim.FGMatrix33.op_SubtractionAssignment(JSBSim.FGMatrix33!System.Runtime.CompilerServices.IsConst*!System.Runtime.CompilerServices.IsImplicitlyDereferenced)">
+In place matrix subtraction.
+
+      @param B matrix to subtract.
+      @return reference to the current matrix.
+
+      Compute the diffence from the current matrix and the matrix B
+      given in the argument.
+
+</member>
+        <member name="M:JSBSim.FGMatrix33.op_Division(System.Double!System.Runtime.CompilerServices.IsConst)">
+Multiply the matrix with 1.0/scalar.
+
+      @param scalar scalar factor to divide through.
+      @return scaled matrix.
+
+      Compute and return the product of the current matrix with the
+      scalar value 1.0/scalar, where scalar is given in the argument.
+
+</member>
+        <member name="M:JSBSim.FGMatrix33.op_Multiply(System.Double!System.Runtime.CompilerServices.IsConst)">
+Multiply the matrix with a scalar.
+
+      @param scalar scalar factor to multiply with.
+      @return scaled matrix.
+
+      Compute and return the product of the current matrix with the
+      scalar value scalar given in the argument.
+
+</member>
+        <member name="M:JSBSim.FGMatrix33.op_Multiply(JSBSim.FGMatrix33!System.Runtime.CompilerServices.IsConst*!System.Runtime.CompilerServices.IsImplicitlyDereferenced)">
+Matrix product.
+
+      @param B matrix to add to.
+      @return product of the matrices.
+
+      Compute and return the product of the current matrix and the matrix
+      B given in the argument.
+
+</member>
+        <member name="M:JSBSim.FGMatrix33.op_Addition(JSBSim.FGMatrix33!System.Runtime.CompilerServices.IsConst*!System.Runtime.CompilerServices.IsImplicitlyDereferenced)">
+Matrix addition.
+
+      @param B matrix to add to.
+      @return sum of the matrices.
+
+      Compute and return the sum of the current matrix and the matrix
+      B given in the argument.
+
+</member>
+        <member name="M:JSBSim.FGMatrix33.op_Subtraction(JSBSim.FGMatrix33!System.Runtime.CompilerServices.IsConst*!System.Runtime.CompilerServices.IsImplicitlyDereferenced)">
+Matrix subtraction.
+
+      @param B matrix to add to.
+      @return difference of the matrices.
+
+      Compute and return the sum of the current matrix and the matrix
+      B given in the argument.
+
+</member>
+        <member name="M:JSBSim.FGMatrix33.op_Multiply(JSBSim.FGColumnVector3!System.Runtime.CompilerServices.IsConst*!System.Runtime.CompilerServices.IsImplicitlyDereferenced)">
+Matrix vector multiplication.
+
+      @param v vector to multiply with.
+      @return matric vector product.
+
+      Compute and return the product of the current matrix with the
+      vector given in the argument.
+
+</member>
+        <member name="M:JSBSim.FGMatrix33.op_Assign(JSBSim.FGMatrix33!System.Runtime.CompilerServices.IsConst*!System.Runtime.CompilerServices.IsImplicitlyDereferenced)">
+Assignment operator.
+
+      @param A source matrix.
+
+      Copy the content of the matrix given in the argument into *this.
+
+</member>
+        <member name="M:JSBSim.FGMatrix33.Inverse">
+Return the inverse of the matrix.
+      Computes and returns if the inverse of the matrix. It is computed
+      by Cramers Rule. Also there are no checks performed if the matrix
+      is invertible. If you are not sure that it really is check this
+      with the @ref Invertible() call before.
+
+</member>
+        <member name="M:JSBSim.FGMatrix33.Invertible">
+Return if the matrix is invertible.
+      Checks and returns if the matrix is nonsingular and thus
+      invertible. This is done by simply computing the determinant and
+      check if it is zero. Note that this test does not cover any
+      instabilities caused by nearly singular matirces using finite
+      arithmetics. It only checks exact singularity.
+
+</member>
+        <member name="M:JSBSim.FGMatrix33.Determinant">
+Determinant of the matrix.
+      @return the determinant of the matrix.
+
+</member>
+        <member name="M:JSBSim.FGMatrix33.InitMatrix(System.Double,System.Double,System.Double,System.Double,System.Double,System.Double,System.Double,System.Double,System.Double)">
+Initialize the matrix.
+    This function initializes a matrix to user specified values.
+
+</member>
+        <member name="M:JSBSim.FGMatrix33.InitMatrix">
+Initialize the matrix.
+    This function initializes a matrix to all 0.0.
+
+</member>
+        <member name="M:JSBSim.FGMatrix33.T">
+Transposes this matrix.
+      This function only transposes this matrix. Nothing is returned.
+
+</member>
+        <member name="M:JSBSim.FGMatrix33.Transposed">
+Transposed matrix.
+      This function only returns the transpose of this matrix. This matrix itself
+      remains unchanged.
+      @return the transposed matrix.
+
+</member>
+        <member name="M:JSBSim.FGMatrix33.Cols">
+Number of cloumns in the matrix.
+      @return the number of columns in the matrix.
+
+</member>
+        <member name="M:JSBSim.FGMatrix33.Rows">
+Number of rows in the matrix.
+      @return the number of rows in the matrix.
+
+</member>
+        <member name="M:JSBSim.FGMatrix33.op_FunctionCall(System.UInt32,System.UInt32)">
+Read access the entries of the matrix.
+      @param row Row index.
+      @param col Column index.
+
+      @return the value of the matrix entry at the given row and
+      column indices. Indices are counted starting with 1.
+
+
+Write access the entries of the matrix.
+      Note that the indices given in the arguments are unchecked.
+
+      @param row Row index.
+      @param col Column index.
+
+      @return a reference to the matrix entry at the given row and
+      column indices. Indices are counted starting with 1.
+
+</member>
+        <member name="M:JSBSim.FGMatrix33.Dispose">
+Destructor.
+
+</member>
+        <member name="M:JSBSim.FGMatrix33.#ctor(System.Double,System.Double,System.Double,System.Double,System.Double,System.Double,System.Double,System.Double,System.Double)">
+Initialization by given values.
+
+      @param m11 value of the 1,1 Matrix element.
+      @param m12 value of the 1,2 Matrix element.
+      @param m13 value of the 1,3 Matrix element.
+      @param m21 value of the 2,1 Matrix element.
+      @param m22 value of the 2,2 Matrix element.
+      @param m23 value of the 2,3 Matrix element.
+      @param m31 value of the 3,1 Matrix element.
+      @param m32 value of the 3,2 Matrix element.
+      @param m33 value of the 3,3 Matrix element.
+
+      Create a matrix from the doubles given in the arguments.
+
+</member>
+        <member name="M:JSBSim.FGMatrix33.#ctor(JSBSim.FGMatrix33!System.Runtime.CompilerServices.IsConst*!System.Runtime.CompilerServices.IsImplicitlyDereferenced)">
+Copy constructor.
+
+      @param M Matrix which is used for initialization.
+
+      Create copy of the matrix given in the argument.
+
+</member>
+        <member name="M:JSBSim.FGMatrix33.#ctor">
+Default initializer.
+
+      Create a zero matrix.
+
+</member>
+        <member name="T:JSBSim.FGMatrix33">
+Handles matrix math operations.
+      @author Tony Peden, Jon Berndt, Mathias Froelich
+
+</member>
+        <member name="T:JSBSim.MatrixException">
+Exception convenience class.
+
+</member>
+        <member name="M:JSBSim.FGTrimAxis.Run">
+This function iterates through a call to the FGFDMExec::RunIC() 
+      function until the desired trimming condition falls inside a tolerance.
+</member>
+        <member name="M:JSBSim.FGTrimAxis.Dispose">
+Destructor
+</member>
+        <member name="M:JSBSim.FGTrimAxis.#ctor(JSBSim.FGFDMExec*,JSBSim.FGInitialCondition*,JSBSim.State,JSBSim.Control)">
+Constructor for Trim Axis class.
+      @param fdmex FGFDMExec pointer
+      @param IC pointer to initial conditions instance
+      @param state a State type (enum)
+      @param control a Control type (enum) 
+</member>
+        <member name="T:JSBSim.State">
+Models an aircraft axis for purposes of trimming.
+
+</member>
+        <member name="M:JSBSim.FGInitialCondition.SetInitFile(std.basic_string&lt;System.SByte!System.Runtime.CompilerServices.IsSignUnspecifiedByte,std.char_traits{System.SByte!System.Runtime.CompilerServices.IsSignUnspecifiedByte},std.allocator&lt;System.SByte!System.Runtime.CompilerServices.IsSignUnspecifiedByte&gt;&gt;)">
+Set init-file name
+
+</member>
+        <member name="M:JSBSim.FGInitialCondition.GetInitFile">
+Get init-file name
+
+</member>
+        <member name="M:JSBSim.FGInitialCondition.Load(std.basic_string&lt;System.SByte!System.Runtime.CompilerServices.IsSignUnspecifiedByte,std.char_traits{System.SByte!System.Runtime.CompilerServices.IsSignUnspecifiedByte},std.allocator&lt;System.SByte!System.Runtime.CompilerServices.IsSignUnspecifiedByte&gt;&gt;,System.Boolean)">
+Loads the initial conditions.
+      @param rstname The name of an initial conditions file
+      @param useStoredPath true if the stored path to the IC file should be used
+      @return true if successful 
+</member>
+        <member name="M:JSBSim.FGInitialCondition.GetTargetNlfIC">
+Gets the target normal load factor set from IC.
+      @return target normal load factor set from IC
+</member>
+        <member name="M:JSBSim.FGInitialCondition.GetWindSet">
+Gets the initial windset.
+      @return Initial windset 
+</member>
+        <member name="M:JSBSim.FGInitialCondition.GetSpeedSet">
+Gets the initial speedset.
+      @return Initial speedset 
+</member>
+        <member name="M:JSBSim.FGInitialCondition.GetPsiRadIC">
+Gets the initial heading angle.
+      @return Initial heading angle in radians 
+</member>
+        <member name="M:JSBSim.FGInitialCondition.GetThetaRadIC">
+Gets the initial pitch angle.
+      @return Initial pitch angle in radians 
+</member>
+        <member name="M:JSBSim.FGInitialCondition.GetLongitudeRadIC">
+Gets the initial longitude.
+      @return Initial longitude in radians 
+</member>
+        <member name="M:JSBSim.FGInitialCondition.GetLatitudeRadIC">
+Gets the initial latitude.
+      @return Initial latitude in radians 
+</member>
+        <member name="M:JSBSim.FGInitialCondition.GetPhiRadIC">
+Gets the initial roll angle.
+      @return Initial roll angle in radians 
+</member>
+        <member name="M:JSBSim.FGInitialCondition.GetBetaRadIC">
+Gets the initial angle of sideslip.
+      @return Initial sideslip angle in radians 
+</member>
+        <member name="M:JSBSim.FGInitialCondition.GetAlphaRadIC">
+Gets the initial angle of attack.
+      @return Initial alpha in radians 
+</member>
+        <member name="M:JSBSim.FGInitialCondition.GetFlightPathAngleRadIC">
+Gets the initial flight path angle.
+      @return Initial flight path angle in radians 
+</member>
+        <member name="M:JSBSim.FGInitialCondition.SetTargetNlfIC(System.Double)">
+Sets the target normal load factor.
+      @param nlf Normal load factor
+</member>
+        <member name="M:JSBSim.FGInitialCondition.SetLongitudeRadIC(System.Double)">
+Sets the initial longitude.
+      @param lon Initial longitude in radians 
+</member>
+        <member name="M:JSBSim.FGInitialCondition.SetLatitudeRadIC(System.Double)">
+Sets the initial latitude.
+      @param lat Initial latitude in radians 
+</member>
+        <member name="M:JSBSim.FGInitialCondition.SetPsiRadIC(System.Double)">
+Sets the initial heading angle.
+      @param psi Initial heading angle in radians 
+</member>
+        <member name="M:JSBSim.FGInitialCondition.SetPhiRadIC(System.Double)">
+Sets the initial roll angle.
+      @param phi Initial roll angle in radians 
+</member>
+        <member name="M:JSBSim.FGInitialCondition.SetBetaRadIC(System.Double)">
+Sets the initial sideslip angle.
+      @param beta Initial angle of sideslip in radians. 
+</member>
+        <member name="M:JSBSim.FGInitialCondition.SetThetaRadIC(System.Double)">
+Sets the initial pitch angle.
+      @param theta Initial pitch angle in radians 
+</member>
+        <member name="M:JSBSim.FGInitialCondition.SetAlphaRadIC(System.Double)">
+Sets the initial angle of attack.
+      @param alpha Initial angle of attack in radians 
+</member>
+        <member name="M:JSBSim.FGInitialCondition.SetFlightPathAngleRadIC(System.Double)">
+Sets the initial flight path angle.
+      @param gamma Initial flight path angle in radians 
+</member>
+        <member name="M:JSBSim.FGInitialCondition.GetRRadpsIC">
+Gets the initial body axis yaw rate.
+      @return Initial body axis yaw rate in radians/second 
+</member>
+        <member name="M:JSBSim.FGInitialCondition.GetQRadpsIC">
+Gets the initial body axis pitch rate.
+      @return Initial body axis pitch rate in radians/second 
+</member>
+        <member name="M:JSBSim.FGInitialCondition.GetPRadpsIC">
+Gets the initial body axis roll rate.
+      @return Initial body axis roll rate in radians/second 
+</member>
+        <member name="M:JSBSim.FGInitialCondition.GetVDownFpsIC">
+Gets the initial local frame Z (Down) velocity.
+      @return Initial local frame Z (Down) axis velocity in feet/second. 
+</member>
+        <member name="M:JSBSim.FGInitialCondition.GetVEastFpsIC">
+Gets the initial local frame Y (East) velocity.
+      @return Initial local frame Y (East) axis velocity in feet/second. 
+</member>
+        <member name="M:JSBSim.FGInitialCondition.GetVNorthFpsIC">
+Gets the initial local frame X (North) velocity.
+      @return Initial local frame X (North) axis velocity in feet/second. 
+</member>
+        <member name="M:JSBSim.FGInitialCondition.GetWBodyFpsIC">
+Gets the initial body axis Z velocity.
+      @return Initial body axis Z velocity in feet/second. 
+</member>
+        <member name="M:JSBSim.FGInitialCondition.GetVBodyFpsIC">
+Gets the initial body axis Y velocity.
+      @return Initial body axis Y velocity in feet/second. 
+</member>
+        <member name="M:JSBSim.FGInitialCondition.GetUBodyFpsIC">
+Gets the initial body axis X velocity.
+      @return Initial body axis X velocity in feet/second. 
+</member>
+        <member name="M:JSBSim.FGInitialCondition.GetClimbRateFpsIC">
+Gets the initial climb rate.
+      @return Initial rate of climb in feet/second 
+</member>
+        <member name="M:JSBSim.FGInitialCondition.GetWindDirDegIC">
+Gets the initial wind direction.
+      @return Initial wind direction in feet/second 
+</member>
+        <member name="M:JSBSim.FGInitialCondition.GetWindFpsIC">
+Gets the initial total wind velocity in feet/sec.
+      @return Initial wind velocity in feet/second 
+</member>
+        <member name="M:JSBSim.FGInitialCondition.GetWindDFpsIC">
+Gets the initial wind velocity in local frame.
+      @return Initial wind velocity downwards in feet/second 
+</member>
+        <member name="M:JSBSim.FGInitialCondition.GetWindEFpsIC">
+Gets the initial wind velocity in local frame.
+      @return Initial wind velocity eastwards in feet/second 
+</member>
+        <member name="M:JSBSim.FGInitialCondition.GetWindNFpsIC">
+Gets the initial wind velocity in local frame.
+      @return Initial wind velocity toward north in feet/second 
+</member>
+        <member name="M:JSBSim.FGInitialCondition.GetWindWFpsIC">
+Gets the initial body axis Z wind velocity.
+      @return Initial body axis Z wind velocity in feet/second 
+</member>
+        <member name="M:JSBSim.FGInitialCondition.GetWindVFpsIC">
+Gets the initial body axis Y wind velocity.
+      @return Initial body axis Y wind velocity in feet/second 
+</member>
+        <member name="M:JSBSim.FGInitialCondition.GetWindUFpsIC">
+Gets the initial body axis X wind velocity.
+      @return Initial body axis X wind velocity in feet/second 
+</member>
+        <member name="M:JSBSim.FGInitialCondition.GetVtrueFpsIC">
+Gets the initial true velocity.
+      @return Initial true velocity in feet/second 
+</member>
+        <member name="M:JSBSim.FGInitialCondition.GetVgroundFpsIC">
+Gets the initial ground velocity.
+      @return Initial ground velocity in feet/second 
+</member>
+        <member name="M:JSBSim.FGInitialCondition.SetClimbRateFpsIC(System.Double)">
+Sets the initial climb rate.
+      @param roc Initial Rate of climb in feet/second 
+</member>
+        <member name="M:JSBSim.FGInitialCondition.SetWindDownKtsIC(System.Double)">
+Sets the initial wind downward speed.
+      @param wD Initial downward wind speed in knots
+</member>
+        <member name="M:JSBSim.FGInitialCondition.SetCrossWindKtsIC(System.Double)">
+Sets the initial crosswind speed.
+      @param cross Initial crosswind speed, positive from left to right 
+</member>
+        <member name="M:JSBSim.FGInitialCondition.SetHeadWindKtsIC(System.Double)">
+Sets the initial headwind velocity.
+      @param head Initial headwind speed in knots 
+</member>
+        <member name="M:JSBSim.FGInitialCondition.SetWindDirDegIC(System.Double)">
+Sets the initial wind direction.
+      @param dir Initial direction wind is coming from in degrees 
+</member>
+        <member name="M:JSBSim.FGInitialCondition.SetWindMagKtsIC(System.Double)">
+Sets the initial total wind speed.
+      @param mag Initial wind velocity magnitude in knots 
+</member>
+        <member name="M:JSBSim.FGInitialCondition.SetWindNEDFpsIC(System.Double,System.Double,System.Double)">
+Sets the initial wind velocity.
+      @param wN Initial wind velocity in local north direction, feet/second
+      @param wE Initial wind velocity in local east direction, feet/second
+      @param wD Initial wind velocity in local down direction, feet/second   
+</member>
+        <member name="M:JSBSim.FGInitialCondition.SetRRadpsIC(System.Double)">
+Sets the initial yaw rate.
+      @param R initial yaw rate in radians/second 
+</member>
+        <member name="M:JSBSim.FGInitialCondition.SetQRadpsIC(System.Double)">
+Sets the initial pitch rate.
+      @param Q Initial pitch rate in radians/second 
+</member>
+        <member name="M:JSBSim.FGInitialCondition.SetPRadpsIC(System.Double)">
+Sets the initial roll rate.
+      @param P Initial roll rate in radians/second 
+</member>
+        <member name="M:JSBSim.FGInitialCondition.SetVDownFpsIC(System.Double)">
+Sets the initial local axis down velocity.
+      @param vd Initial down velocity in feet/second 
+</member>
+        <member name="M:JSBSim.FGInitialCondition.SetVEastFpsIC(System.Double)">
+Sets the initial local axis east velocity.
+      @param ve Initial east velocity in feet/second 
+</member>
+        <member name="M:JSBSim.FGInitialCondition.SetVNorthFpsIC(System.Double)">
+Sets the initial local axis north velocity.
+      @param vn Initial north velocity in feet/second 
+</member>
+        <member name="M:JSBSim.FGInitialCondition.SetWBodyFpsIC(System.Double)">
+Sets the initial body axis Z velocity.
+      @param wbody Initial Z velocity in feet/second 
+</member>
+        <member name="M:JSBSim.FGInitialCondition.SetVBodyFpsIC(System.Double)">
+Sets the initial body axis Y velocity.
+      @param vbody Initial Y velocity in feet/second 
+</member>
+        <member name="M:JSBSim.FGInitialCondition.SetUBodyFpsIC(System.Double)">
+Sets the initial body axis X velocity.
+      @param ubody Initial X velocity in feet/second 
+</member>
+        <member name="M:JSBSim.FGInitialCondition.SetVtrueFpsIC(System.Double)">
+Sets the initial true airspeed.
+      @param vt Initial true airspeed in feet/second 
+</member>
+        <member name="M:JSBSim.FGInitialCondition.SetVgroundFpsIC(System.Double)">
+Sets the initial ground speed.
+      @param vg Initial ground speed in feet/second 
+</member>
+        <member name="M:JSBSim.FGInitialCondition.GetTerrainElevationFtIC">
+Gets the initial terrain elevation.
+      @return Initial terrain elevation in feet 
+</member>
+        <member name="M:JSBSim.FGInitialCondition.GetSeaLevelRadiusFtIC">
+Gets the initial sea level radius.
+      @return Initial sea level radius 
+</member>
+        <member name="M:JSBSim.FGInitialCondition.GetAltitudeAGLFtIC">
+Gets the initial altitude above ground level.
+      @return Initial altitude AGL in feet 
+</member>
+        <member name="M:JSBSim.FGInitialCondition.GetAltitudeASLFtIC">
+Gets the initial altitude above sea level.
+      @return Initial altitude in feet. 
+</member>
+        <member name="M:JSBSim.FGInitialCondition.GetLongitudeDegIC">
+Gets the initial longitude.
+      @return Initial longitude in degrees 
+</member>
+        <member name="M:JSBSim.FGInitialCondition.GetLatitudeDegIC">
+Gets the initial latitude.
+      @return Initial geocentric latitude in degrees 
+</member>
+        <member name="M:JSBSim.FGInitialCondition.GetPsiDegIC">
+Gets the initial heading angle.
+      @return Initial psi in degrees 
+</member>
+        <member name="M:JSBSim.FGInitialCondition.GetPhiDegIC">
+Gets the initial roll angle.
+      @return Initial phi in degrees 
+</member>
+        <member name="M:JSBSim.FGInitialCondition.GetThetaDegIC">
+Gets the initial pitch angle.
+      @return Initial pitch angle in degrees 
+</member>
+        <member name="M:JSBSim.FGInitialCondition.GetBetaDegIC">
+Gets the initial sideslip angle.
+      @return Initial beta in degrees 
+</member>
+        <member name="M:JSBSim.FGInitialCondition.GetAlphaDegIC">
+Gets the initial angle of attack.
+      @return Initial alpha in degrees 
+</member>
+        <member name="M:JSBSim.FGInitialCondition.GetFlightPathAngleDegIC">
+Gets the initial flight path angle.
+      @return Initial flight path angle in degrees 
+</member>
+        <member name="M:JSBSim.FGInitialCondition.GetClimbRateFpmIC">
+Gets the initial climb rate.
+      @return Initial climb rate in feet/minute 
+</member>
+        <member name="M:JSBSim.FGInitialCondition.GetMachIC">
+Gets the initial mach.
+      @return Initial mach number 
+</member>
+        <member name="M:JSBSim.FGInitialCondition.GetVtrueKtsIC">
+Gets the initial true velocity.
+      @return Initial true airspeed in knots. 
+</member>
+        <member name="M:JSBSim.FGInitialCondition.GetVgroundKtsIC">
+Gets the initial ground speed.
+      @return Initial ground speed in knots 
+</member>
+        <member name="M:JSBSim.FGInitialCondition.GetVequivalentKtsIC">
+Gets the initial equivalent airspeed.
+      @return Initial equivalent airspeed in knots 
+</member>
+        <member name="M:JSBSim.FGInitialCondition.GetVcalibratedKtsIC">
+Gets the initial calibrated airspeed.
+      @return Initial calibrated airspeed in knots 
+</member>
+        <member name="M:JSBSim.FGInitialCondition.SetLongitudeDegIC(System.Double)">
+Sets the initial longitude.
+      @param lon Initial longitude in degrees 
+</member>
+        <member name="M:JSBSim.FGInitialCondition.SetLatitudeDegIC(System.Double)">
+Sets the initial latitude.
+      @param lat Initial latitude in degrees 
+</member>
+        <member name="M:JSBSim.FGInitialCondition.SetTerrainElevationFtIC(System.Double)">
+Sets the initial terrain elevation.
+      @param elev Initial terrain elevation in feet 
+</member>
+        <member name="M:JSBSim.FGInitialCondition.SetSeaLevelRadiusFtIC(System.Double)">
+Sets the initial sea level radius from planet center
+      @param sl_rad sea level radius in feet 
+</member>
+        <member name="M:JSBSim.FGInitialCondition.SetAltitudeAGLFtIC(System.Double)">
+Sets the initial Altitude above ground level.
+      @param agl Altitude above ground level in feet 
+</member>
+        <member name="M:JSBSim.FGInitialCondition.SetAltitudeASLFtIC(System.Double)">
+Sets the altitude above sea level initial condition in feet.
+      @param altitudeASL Altitude above sea level in feet 
+</member>
+        <member name="M:JSBSim.FGInitialCondition.SetFlightPathAngleDegIC(System.Double)">
+Sets the flight path angle initial condition in degrees.
+      @param gamma Flight path angle in degrees  
+</member>
+        <member name="M:JSBSim.FGInitialCondition.SetClimbRateFpmIC(System.Double)">
+Sets the climb rate initial condition in feet/minute.
+      @param roc Rate of Climb in feet/minute  
+</member>
+        <member name="M:JSBSim.FGInitialCondition.SetPsiDegIC(System.Double)">
+Sets the heading angle initial condition in degrees.
+      @param psi Heading angle in degrees 
+</member>
+        <member name="M:JSBSim.FGInitialCondition.SetPhiDegIC(System.Double)">
+Sets the roll angle initial condition in degrees.
+      @param phi roll angle in degrees 
+</member>
+        <member name="M:JSBSim.FGInitialCondition.ResetIC(System.Double,System.Double,System.Double,System.Double,System.Double,System.Double,System.Double,System.Double,System.Double,System.Double,System.Double,System.Double,System.Double,System.Double,System.Double)">
+Resets the IC data structure to new values
+      @param u, v, w, ... *
+</member>
+        <member name="M:JSBSim.FGInitialCondition.SetThetaDegIC(System.Double)">
+Sets pitch angle initial condition in degrees.
+      @param theta Theta (pitch) angle in degrees 
+</member>
+        <member name="M:JSBSim.FGInitialCondition.SetBetaDegIC(System.Double)">
+Sets angle of sideslip initial condition in degrees.
+      @param B Beta in degrees 
+</member>
+        <member name="M:JSBSim.FGInitialCondition.SetAlphaDegIC(System.Double)">
+Sets angle of attack initial condition in degrees.
+      @param a Alpha in degrees 
+</member>
+        <member name="M:JSBSim.FGInitialCondition.SetMachIC(System.Double)">
+Set mach initial condition.
+      @param mach Mach number  
+</member>
+        <member name="M:JSBSim.FGInitialCondition.SetVgroundKtsIC(System.Double)">
+Set ground speed initial condition in knots.
+      @param vg Ground speed in knots  
+</member>
+        <member name="M:JSBSim.FGInitialCondition.SetVtrueKtsIC(System.Double)">
+Set true airspeed initial condition in knots.
+      @param vt True airspeed in knots  
+</member>
+        <member name="M:JSBSim.FGInitialCondition.SetVequivalentKtsIC(System.Double)">
+Set equivalent airspeed initial condition in knots.
+      @param ve Equivalent airspeed in knots  
+</member>
+        <member name="M:JSBSim.FGInitialCondition.SetVcalibratedKtsIC(System.Double)">
+Set calibrated airspeed initial condition in knots.
+      @param vc Calibrated airspeed in knots  
+</member>
+        <member name="M:JSBSim.FGInitialCondition.Dispose">
+Destructor
+</member>
+        <member name="M:JSBSim.FGInitialCondition.#ctor(JSBSim.FGFDMExec*)">
+Constructor
+</member>
+        <member name="T:JSBSim.FGInitialCondition">
+Initializes the simulation run.
+    Takes a set of initial conditions (IC) and provide a kinematically consistent set
+    of body axis velocity components, euler angles, and altitude.  This class
+    does not attempt to trim the model i.e. the sim will most likely start in a
+    very dynamic state (unless, of course, you have chosen your IC's wisely, or
+    started on the ground) even after setting it up with this class.
+
+   <h3>Usage Notes</h3>
+
+   With a valid object of FGFDMExec and an aircraft model loaded:
+
+   @code
+   FGInitialCondition fgic=new FGInitialCondition(FDMExec);
+   fgic-&gt;SetVcalibratedKtsIC()
+   fgic-&gt;SetAltitudeAGLFtIC();
+
+   // directly into Run
+   FDMExec-&gt;GetState()-&gt;Initialize(fgic)
+   delete fgic;
+   FDMExec-&gt;Run()
+
+   //or to loop the sim w/o integrating
+   FDMExec-&gt;RunIC(fgic)
+   @endcode
+
+   <h3>Speed</h3>
+
+   Since vc, ve, vt, and mach all represent speed, the remaining
+   three are recalculated each time one of them is set (using the
+   current altitude).  The most recent speed set is remembered so
+   that if and when altitude is reset, the last set speed is used
+   to recalculate the remaining three. Setting any of the body
+   components forces a recalculation of vt and vt then becomes the
+   most recent speed set.
+
+   <h3>Alpha,Gamma, and Theta</h3>
+
+   This class assumes that it will be used to set up the sim for a
+   steady, zero pitch rate condition. Since any two of those angles
+   specifies the third gamma (flight path angle) is favored when setting
+   alpha and theta and alpha is favored when setting gamma. i.e.
+
+   - set alpha : recalculate theta using gamma as currently set
+   - set theta : recalculate alpha using gamma as currently set
+   - set gamma : recalculate theta using alpha as currently set
+
+   The idea being that gamma is most interesting to pilots (since it
+   is indicative of climb rate).
+
+   Setting climb rate is, for the purpose of this discussion,
+   considered equivalent to setting gamma.
+
+   These are the items that can be set in an initialization file:
+
+   - ubody (velocity, ft/sec)
+   - vbody (velocity, ft/sec)
+   - wbody (velocity, ft/sec)
+   - vnorth (velocity, ft/sec)
+   - veast (velocity, ft/sec)
+   - vdown (velocity, ft/sec)
+   - latitude (position, degrees)
+   - longitude (position, degrees)
+   - phi (orientation, degrees)
+   - theta (orientation, degrees)
+   - psi (orientation, degrees)
+   - alpha (angle, degrees)
+   - beta (angle, degrees)
+   - gamma (angle, degrees)
+   - roc (vertical velocity, ft/sec)
+   - altitude (altitude AGL, ft)
+   - winddir (wind from-angle, degrees)
+   - vwind (magnitude wind speed, ft/sec)
+   - hwind (headwind speed, knots)
+   - xwind (crosswind speed, knots)
+   - vc (calibrated airspeed, ft/sec)
+   - mach (mach)
+   - vground (ground speed, ft/sec)
+   - running (0 or 1)
+
+   <h3>Properties</h3>
+   @property ic/vc-kts (read/write) Calibrated airspeed initial condition in knots
+   @property ic/ve-kts (read/write) Knots equivalent airspeed initial condition
+   @property ic/vg-kts (read/write) Ground speed initial condition in knots
+   @property ic/vt-kts (read/write) True airspeed initial condition in knots
+   @property ic/mach (read/write) Mach initial condition
+   @property ic/roc-fpm (read/write) Rate of climb initial condition in feet/minute
+   @property ic/gamma-deg (read/write) Flightpath angle initial condition in degrees
+   @property ic/alpha-deg (read/write) Angle of attack initial condition in degrees
+   @property ic/beta-deg (read/write) Angle of sideslip initial condition in degrees
+   @property ic/theta-deg (read/write) Pitch angle initial condition in degrees
+   @property ic/phi-deg (read/write) Roll angle initial condition in degrees
+   @property ic/psi-true-deg (read/write) Heading angle initial condition in degrees
+   @property ic/lat-gc-deg (read/write) Latitude initial condition in degrees
+   @property ic/long-gc-deg (read/write) Longitude initial condition in degrees
+   @property ic/h-sl-ft (read/write) Height above sea level initial condition in feet
+   @property ic/h-agl-ft (read/write) Height above ground level initial condition in feet
+   @property ic/sea-level-radius-ft (read/write) Radius of planet at sea level in feet
+   @property ic/terrain-elevation-ft (read/write) Terrain elevation above sea level in feet
+   @property ic/vg-fps (read/write) Ground speed initial condition in feet/second
+   @property ic/vt-fps (read/write) True airspeed initial condition in feet/second
+   @property ic/vw-bx-fps (read/write) Wind velocity initial condition in Body X frame in feet/second
+   @property ic/vw-by-fps (read/write) Wind velocity initial condition in Body Y frame in feet/second
+   @property ic/vw-bz-fps (read/write) Wind velocity initial condition in Body Z frame in feet/second
+   @property ic/vw-north-fps (read/write) Wind northward velocity initial condition in feet/second
+   @property ic/vw-east-fps (read/write) Wind eastward velocity initial condition in feet/second
+   @property ic/vw-down-fps (read/write) Wind downward velocity initial condition in feet/second
+   @property ic/vw-mag-fps (read/write) Wind velocity magnitude initial condition in feet/sec.
+   @property ic/vw-dir-deg (read/write) Wind direction initial condition, in degrees from north
+   @property ic/roc-fps (read/write) Rate of climb initial condition, in feet/second
+   @property ic/u-fps (read/write) Body frame x-axis velocity initial condition in feet/second
+   @property ic/v-fps (read/write) Body frame y-axis velocity initial condition in feet/second
+   @property ic/w-fps (read/write) Body frame z-axis velocity initial condition in feet/second
+   @property ic/vn-fps (read/write) Local frame x-axis (north) velocity initial condition in feet/second
+   @property ic/ve-fps (read/write) Local frame y-axis (east) velocity initial condition in feet/second
+   @property ic/vd-fps (read/write) Local frame z-axis (down) velocity initial condition in feet/second
+   @property ic/gamma-rad (read/write) Flight path angle initial condition in radians
+   @property ic/alpha-rad (read/write) Angle of attack initial condition in radians
+   @property ic/theta-rad (read/write) Pitch angle initial condition in radians
+   @property ic/beta-rad (read/write) Angle of sideslip initial condition in radians
+   @property ic/phi-rad (read/write) Roll angle initial condition in radians
+   @property ic/psi-true-rad (read/write) Heading angle initial condition in radians
+   @property ic/lat-gc-rad (read/write) Geocentric latitude initial condition in radians
+   @property ic/long-gc-rad (read/write) Longitude initial condition in radians
+   @property ic/p-rad_sec (read/write) Roll rate initial condition in radians/second
+   @property ic/q-rad_sec (read/write) Pitch rate initial condition in radians/second
+   @property ic/r-rad_sec (read/write) Yaw rate initial condition in radians/second
+
+   @author Tony Peden
+   @version "$Id: FGInitialCondition.h,v 1.17 2009/05/26 05:35:42 jberndt Exp $"
+
+</member>
+        <member name="M:readXML(std.basic_string&lt;System.SByte!System.Runtime.CompilerServices.IsSignUnspecifiedByte,std.char_traits{System.SByte!System.Runtime.CompilerServices.IsSignUnspecifiedByte},std.allocator&lt;System.SByte!System.Runtime.CompilerServices.IsSignUnspecifiedByte&gt;&gt;!System.Runtime.CompilerServices.IsConst*!System.Runtime.CompilerServices.IsImplicitlyDereferenced,XMLVisitor*!System.Runtime.CompilerServices.IsImplicitlyDereferenced)">
+@relates XMLVisitor
+ * Read an XML document.
+ *
+ * This function reads an XML document from the input stream provided,
+ * and invokes the callback methods in the visitor object to pass the
+ * parsing events back to the application.  When this function
+ * returns, the parser will have reported all of the data in the XML
+ * document to the application through the visitor callback methods,
+ * and XML processing will be complete.
+ *
+ * @param path The file name of the XML resource.
+ * @param visitor An object that contains callbacks for XML parsing
+ * events.
+ * @exception Throws sg_io_exception or sg_xml_exception if there
+ * is a problem reading the file.
+ * @see XMLVisitor
+
+</member>
+        <member name="M:readXML(std.basic_istream&lt;System.SByte!System.Runtime.CompilerServices.IsSignUnspecifiedByte,std.char_traits{System.SByte!System.Runtime.CompilerServices.IsSignUnspecifiedByte}&gt;*!System.Runtime.CompilerServices.IsImplicitlyDereferenced,XMLVisitor*!System.Runtime.CompilerServices.IsImplicitlyDereferenced,std.basic_string&lt;System.SByte!System.Runtime.CompilerServices.IsSignUnspecifiedByte,std.char_traits{System.SByte!System.Runtime.CompilerServices.IsSignUnspecifiedByte},std.allocator&lt;System.SByte!System.Runtime.CompilerServices.IsSignUnspecifiedByte&gt;&gt;!System.Runtime.CompilerServices.IsConst*!System.Runtime.CompilerServices.IsImplicitlyDereferenced)">
+@relates XMLVisitor
+ * Read an XML document.
+ *
+ * This function reads an XML document from the input stream provided,
+ * and invokes the callback methods in the visitor object to pass the
+ * parsing events back to the application.  When this function
+ * returns, the parser will have reported all of the data in the XML
+ * document to the application through the visitor callback methods,
+ * and XML processing will be complete.
+ *
+ * @param input The byte input stream containing the XML document.
+ * @param visitor An object that contains callbacks for XML parsing
+ * events.
+ * @param path A string describing the original path of the resource.
+ * @exception Throws sg_io_exception or sg_xml_exception if there
+ * is a problem reading the file.
+ * @see XMLVisitor
+
+</member>
+        <member name="M:XMLVisitor.warning(System.SByte!System.Runtime.CompilerServices.IsSignUnspecifiedByte!System.Runtime.CompilerServices.IsConst*,System.Int32,System.Int32)">
+Callback for an XML parsing warning.
+   *
+   * The XML parser will use this callback to report any non-fatal warnings
+   * during parsing.  It is the responsibility of the application to
+   * deal with the warning in some appropriate way.
+   *
+   * @param message The warning message from the parser.
+   * @param line The number of the line that generated the warning.
+   * @param column The character position in the line that generated
+   * the warning.
+
+</member>
+        <member name="M:XMLVisitor.pi(System.SByte!System.Runtime.CompilerServices.IsSignUnspecifiedByte!System.Runtime.CompilerServices.IsConst*,System.SByte!System.Runtime.CompilerServices.IsSignUnspecifiedByte!System.Runtime.CompilerServices.IsConst*)">
+Callback for an XML processing instruction.
+   *
+   * The XML parser will invoke this method once for every processing
+   * instruction in the XML document.  Note that the XML declaration
+   * and the Text declaration are NOT PROCESSING INSTRUCTIONS and
+   * will not be reported through this callback.  Processing
+   * instructions are not all that useful, but the XML recommendation
+   * requires that they be reported.  Most applications can safely
+   * ignore this callback and use the empty default implementation.
+   *
+   * @param target The processing instruction target (not null).
+   * @param data The processing instruction data (not null).
+
+</member>
+        <member name="M:XMLVisitor.data(System.SByte!System.Runtime.CompilerServices.IsSignUnspecifiedByte!System.Runtime.CompilerServices.IsConst*,System.Int32)">
+Callback for a chunk of character data.
+   *
+   * The XML parser will invoke this method once for every chunk of
+   * character data in the XML document, including whitespace
+   * separating elements (as required by the XML recommendation).
+   * Note that character data may be chunked arbitrarily: the
+   * character data content of an element may be returned in one
+   * large chunk or several consecutive smaller chunks.
+   *
+   * @param s A pointer to the beginning of the character data (not null).
+   * @param length The number of characters in the chunk (may
+   * be zero).
+
+</member>
+        <member name="M:XMLVisitor.endElement(System.SByte!System.Runtime.CompilerServices.IsSignUnspecifiedByte!System.Runtime.CompilerServices.IsConst*)">
+Callback for the end of an XML element.
+   *
+   * The XML parser will invoke this method at the end of every XML element.
+   *
+   * @param name The name of the element that is ending (not null).
+   * @see #startElement
+
+</member>
+        <member name="M:XMLVisitor.startElement(System.SByte!System.Runtime.CompilerServices.IsSignUnspecifiedByte!System.Runtime.CompilerServices.IsConst*,XMLAttributes!System.Runtime.CompilerServices.IsConst*!System.Runtime.CompilerServices.IsImplicitlyDereferenced)">
+Callback for the start of an XML element.
+   *
+   * The XML parser will invoke this method at the beginning of every
+   * XML element.  Start and end element calls will be balanced
+   * and properly nested: every element has both a start and end
+   * callback (even if it was specified with an XML empty element tag),
+   * there is exactly one root element, and every element must end
+   * before its parent does.  Elements may not overlap.
+   * Note that the attribute list provided is volatile; it's contents
+   * are not guaranteed to persist after the end of the callback.
+   * If the application needs to keep a copy of the attribute list,
+   * it can make the copy with the {@link XMLAttributesDefault} class.
+   *
+   * @param name The name of the element that is starting (not null).
+   * @param atts The element's attributes (not null).
+   * @see #endElement
+
+</member>
+        <member name="M:XMLVisitor.endXML">
+Callback for the end of an XML document.
+   *
+   * The XML parser will invoke this method once, at the end of the
+   * XML document, after all other methods are invoked, and only
+   * if there have been no parsing errors.  The application can use
+   * this callback to close or write files, finalize data structures,
+   * and so on, but the application will need to be prepared to
+   * clean up any resources without this callback in the event of
+   * an error.
+   *
+   * @see #startXML
+
+</member>
+        <member name="M:XMLVisitor.startXML">
+Callback for the start of an XML document.
+   *
+   * The XML parser will invoke this method once, at the beginning of
+   * the XML document, before any other methods are invoked.  The
+   * application can use this callback to set up data structures,
+   * open files, etc.
+   *
+   * @see #endXML
+
+</member>
+        <member name="M:XMLVisitor.Dispose">
+Virtual destructor.
+</member>
+        <member name="T:XMLVisitor">
+Visitor class for an XML document.
+ *
+ * This interface uses the Visitor pattern.  The XML parser walks
+ * through the XML document and invokes the appropriate method in
+ * this visitor for each piece of markup it finds.  By default,
+ * the methods do nothing; the application must subclass the visitor
+ * and override the methods for the events it's interested in.
+ * All applications are required to provide an implementation
+ * for the error callback.
+
+</member>
+        <member name="M:XMLAttributesDefault.setValue(System.SByte!System.Runtime.CompilerServices.IsSignUnspecifiedByte!System.Runtime.CompilerServices.IsConst*,System.SByte!System.Runtime.CompilerServices.IsSignUnspecifiedByte!System.Runtime.CompilerServices.IsConst*)">
+Set an attribute value by name.
+   *
+   * This method will not extend the list; the attribute must
+   * already exist.
+   *
+   * @param name The name of the attribute that will have the new
+   * value.
+   * @param value The new value.
+
+</member>
+        <member name="M:XMLAttributesDefault.setValue(System.Int32,System.SByte!System.Runtime.CompilerServices.IsSignUnspecifiedByte!System.Runtime.CompilerServices.IsConst*)">
+Set an attribute value by index.
+   *
+   * This method will not extend the list; the attribute must
+   * already exist.
+   *
+   * @param i The index of the attribute (zero-based).
+   * @param value The new value.
+
+</member>
+        <member name="M:XMLAttributesDefault.setName(System.Int32,System.SByte!System.Runtime.CompilerServices.IsSignUnspecifiedByte!System.Runtime.CompilerServices.IsConst*)">
+Set an attribute name by index.
+   *
+   * This method will not extend the list; the attribute must
+   * already exist.
+   *
+   * @param i The index of the attribute (zero-based).
+   * @param name The new name.
+
+</member>
+        <member name="M:XMLAttributesDefault.addAttribute(System.SByte!System.Runtime.CompilerServices.IsSignUnspecifiedByte!System.Runtime.CompilerServices.IsConst*,System.SByte!System.Runtime.CompilerServices.IsSignUnspecifiedByte!System.Runtime.CompilerServices.IsConst*)">
+Add an attribute to an attribute list.
+   *
+   * The name is required to be unique in the list; the value is not.
+   *
+   * @param name The name of the attribute to add.
+   * @param value The value of the attribute to add.
+
+</member>
+        <member name="M:XMLAttributesDefault.getValue(System.Int32)">
+Get the value of an attribute by index.
+</member>
+        <member name="M:XMLAttributesDefault.getName(System.Int32)">
+Get the name of an attribute by index.
+</member>
+        <member name="M:XMLAttributesDefault.size">
+Count the attributes in the list.
+</member>
+        <member name="M:XMLAttributesDefault.Dispose">
+Destructor.
+</member>
+        <member name="M:XMLAttributesDefault.#ctor(XMLAttributes!System.Runtime.CompilerServices.IsConst*!System.Runtime.CompilerServices.IsImplicitlyDereferenced)">
+Copy constructor.
+   *
+   * This constructor is especially useful for taking a static
+   * snapshot of an attribute list for later use.
+   *
+   * @param atts The attribute list to copy.
+
+</member>
+        <member name="M:XMLAttributesDefault.#ctor">
+Default constructor.
+</member>
+        <member name="T:XMLAttributesDefault">
+Default mutable attributes implementation.
+ *
+ * This class provides a default implementation of the {@link
+ * XMLAttributes} interface.  The implementation is mutable, so
+ * that it is possible to modify the attribute list when necessary.
+ * This class is particularly useful for taking a snapshot of
+ * an attribute list during parsing.
+ *
+ * @see XMLAttributes
+
+</member>
+        <member name="M:XMLAttributes.getValue(System.SByte!System.Runtime.CompilerServices.IsSignUnspecifiedByte!System.Runtime.CompilerServices.IsConst*)">
+Look up the value of an attribute by name.
+   *
+   * This method provides a convenient short-cut to invoking
+   * {@link #findAttribute} and <tt>getValue(const char *name)</tt>.
+   *
+   * @param name The name of the attribute to look up.
+   * @return The attribute's value as a string, or 0 if no
+   * attribute was found with the name specified.
+
+</member>
+        <member name="M:XMLAttributes.hasAttribute(System.SByte!System.Runtime.CompilerServices.IsSignUnspecifiedByte!System.Runtime.CompilerServices.IsConst*)">
+Test whether an attribute is present.
+   *
+   * @param name The name of the attribute.
+   * @return true if an attribute with the specified name is present
+   * in the attribute list, false otherwise.
+
+</member>
+        <member name="M:XMLAttributes.findAttribute(System.SByte!System.Runtime.CompilerServices.IsSignUnspecifiedByte!System.Runtime.CompilerServices.IsConst*)">
+Look up the index of an attribute by name.
+   *
+   * Attribute names must be unique.  This method will return
+   * an index that can be used with the <tt>getValue(const char *name)</tt>
+   * method if the attribute is found.
+   *
+   * @param name The name of the attribute.
+   * @return The index of the attribute with the name specified,
+   * or -1 if no such attribute is present in the list.
+
+</member>
+        <member name="M:XMLAttributes.getValue(System.Int32)">
+Get the string value of an attribute by index.
+   *
+   * The index must be less than the size of the list and greater
+   * than or equal to zero.
+   *
+   * @param i The index of the attribute (zero-based).
+   * @see #size
+
+</member>
+        <member name="M:XMLAttributes.getName(System.Int32)">
+Get the name of an attribute by index.
+   * The index must be less than the size of the list and greater
+   * than or equal to zero.
+   * @param i The index of the attribute (zero-based).
+   * @see #size
+
+</member>
+        <member name="M:XMLAttributes.size">
+Get the number of attributes present.
+   * @return The number of attributes in the list (may be 0).
+
+</member>
+        <member name="M:XMLAttributes.Dispose">
+Destructor.
+</member>
+        <member name="M:XMLAttributes.#ctor">
+Constructor.
+</member>
+        <member name="T:XMLAttributes">
+Interface for XML attributes.
+ *
+ * This interface is used to provide a list of attributes to the
+ * application.  The interface is a pure abstract class so that
+ * different implementations can be substituted for the sake of
+ * efficiency.
+ *
+ * @see XMLAttributesDefault
+
+</member>
+        <member name="T:SGPropertyNode.hash_table.bucket">
+A bucket in a hash table.
+
+</member>
+        <member name="T:SGPropertyNode.hash_table.entry">
+An entry in a bucket in a hash table.
+
+</member>
+        <member name="T:SGPropertyNode.hash_table">
+A very simple hash table with no remove functionality.
+
+</member>
+        <member name="F:SGPropertyNode._parent">
+To avoid cyclic reference counting loops this shall not be a reference
+counted pointer
+</member>
+        <member name="M:SGPropertyNode.trace_write">
+Trace a write access.
+
+</member>
+        <member name="M:SGPropertyNode.trace_read">
+Trace a read access.
+
+</member>
+        <member name="M:SGPropertyNode.make_string">
+Get the value as a string.
+
+</member>
+        <member name="M:SGPropertyNode.#ctor(System.SByte!System.Runtime.CompilerServices.IsSignUnspecifiedByte!System.Runtime.CompilerServices.IsConst*,System.Int32,SGPropertyNode*)">
+Protected constructor for making new nodes on demand.
+
+</member>
+        <member name="M:SGPropertyNode.clearValue">
+Clear any existing value and set the type to NONE.
+
+</member>
+        <member name="M:SGPropertyNode.fireChildRemoved(SGPropertyNode*)">
+Fire a child-removed event to all listeners.
+
+</member>
+        <member name="M:SGPropertyNode.fireChildAdded(SGPropertyNode*)">
+Fire a child-added event to all listeners.
+
+</member>
+        <member name="M:SGPropertyNode.fireValueChanged">
+Fire a value change event to all listeners.
+
+</member>
+        <member name="M:SGPropertyNode.removeChangeListener(SGPropertyChangeListener*)">
+Remove a change listener from the property.
+
+</member>
+        <member name="M:SGPropertyNode.addChangeListener(SGPropertyChangeListener*,System.Boolean)">
+Add a change listener to the property. If "initial" is set call the
+listener initially.
+
+</member>
+        <member name="M:SGPropertyNode.untie(System.SByte!System.Runtime.CompilerServices.IsSignUnspecifiedByte!System.Runtime.CompilerServices.IsConst*)">
+Unbind another node from any external data source.
+
+</member>
+        <member name="M:SGPropertyNode.tie(System.SByte!System.Runtime.CompilerServices.IsSignUnspecifiedByte!System.Runtime.CompilerServices.IsConst*,SGRawValue&lt;System.SByte!System.Runtime.CompilerServices.IsSignUnspecifiedByte!System.Runtime.CompilerServices.IsConst**&gt;!System.Runtime.CompilerServices.IsConst*!System.Runtime.CompilerServices.IsImplicitlyDereferenced,System.Boolean)">
+Bind another node to an external string source.
+
+</member>
+        <member name="M:SGPropertyNode.tie(System.SByte!System.Runtime.CompilerServices.IsSignUnspecifiedByte!System.Runtime.CompilerServices.IsConst*,SGRawValue&lt;System.Double&gt;!System.Runtime.CompilerServices.IsConst*!System.Runtime.CompilerServices.IsImplicitlyDereferenced,System.Boolean)">
+Bind another node to an external double source.
+
+</member>
+        <member name="M:SGPropertyNode.tie(System.SByte!System.Runtime.CompilerServices.IsSignUnspecifiedByte!System.Runtime.CompilerServices.IsConst*,SGRawValue&lt;System.Single&gt;!System.Runtime.CompilerServices.IsConst*!System.Runtime.CompilerServices.IsImplicitlyDereferenced,System.Boolean)">
+Bind another node to an external float source.
+
+</member>
+        <member name="M:SGPropertyNode.tie(System.SByte!System.Runtime.CompilerServices.IsSignUnspecifiedByte!System.Runtime.CompilerServices.IsConst*,SGRawValue&lt;System.Int32!System.Runtime.CompilerServices.IsLong&gt;!System.Runtime.CompilerServices.IsConst*!System.Runtime.CompilerServices.IsImplicitlyDereferenced,System.Boolean)">
+Bind another node to an external long int source.
+
+</member>
+        <member name="M:SGPropertyNode.tie(System.SByte!System.Runtime.CompilerServices.IsSignUnspecifiedByte!System.Runtime.CompilerServices.IsConst*,SGRawValue&lt;System.Int32&gt;!System.Runtime.CompilerServices.IsConst*!System.Runtime.CompilerServices.IsImplicitlyDereferenced,System.Boolean)">
+Bind another node to an external int source.
+
+</member>
+        <member name="M:SGPropertyNode.tie(System.SByte!System.Runtime.CompilerServices.IsSignUnspecifiedByte!System.Runtime.CompilerServices.IsConst*,SGRawValue&lt;System.Boolean&gt;!System.Runtime.CompilerServices.IsConst*!System.Runtime.CompilerServices.IsImplicitlyDereferenced,System.Boolean)">
+Bind another node to an external bool source.
+
+</member>
+        <member name="M:SGPropertyNode.isTied(System.SByte!System.Runtime.CompilerServices.IsSignUnspecifiedByte!System.Runtime.CompilerServices.IsConst*)">
+Test whether another node is bound to an external data source.
+
+</member>
+        <member name="M:SGPropertyNode.setUnspecifiedValue(System.SByte!System.Runtime.CompilerServices.IsSignUnspecifiedByte!System.Runtime.CompilerServices.IsConst*,System.SByte!System.Runtime.CompilerServices.IsSignUnspecifiedByte!System.Runtime.CompilerServices.IsConst*)">
+Set another node's value with no specified type.
+
+</member>
+        <member name="M:SGPropertyNode.setStringValue(System.SByte!System.Runtime.CompilerServices.IsSignUnspecifiedByte!System.Runtime.CompilerServices.IsConst*,System.SByte!System.Runtime.CompilerServices.IsSignUnspecifiedByte!System.Runtime.CompilerServices.IsConst*)">
+Set another node's value as a string.
+
+</member>
+        <member name="M:SGPropertyNode.setDoubleValue(System.SByte!System.Runtime.CompilerServices.IsSignUnspecifiedByte!System.Runtime.CompilerServices.IsConst*,System.Double)">
+Set another node's value as a double.
+
+</member>
+        <member name="M:SGPropertyNode.setFloatValue(System.SByte!System.Runtime.CompilerServices.IsSignUnspecifiedByte!System.Runtime.CompilerServices.IsConst*,System.Single)">
+Set another node's value as a float.
+
+</member>
+        <member name="M:SGPropertyNode.setLongValue(System.SByte!System.Runtime.CompilerServices.IsSignUnspecifiedByte!System.Runtime.CompilerServices.IsConst*,System.Int32!System.Runtime.CompilerServices.IsLong)">
+Set another node's value as a long int.
+
+</member>
+        <member name="M:SGPropertyNode.setIntValue(System.SByte!System.Runtime.CompilerServices.IsSignUnspecifiedByte!System.Runtime.CompilerServices.IsConst*,System.Int32)">
+Set another node's value as an int.
+
+</member>
+        <member name="M:SGPropertyNode.setBoolValue(System.SByte!System.Runtime.CompilerServices.IsSignUnspecifiedByte!System.Runtime.CompilerServices.IsConst*,System.Boolean)">
+Set another node's value as a bool.
+
+</member>
+        <member name="M:SGPropertyNode.getStringValue(System.SByte!System.Runtime.CompilerServices.IsSignUnspecifiedByte!System.Runtime.CompilerServices.IsConst*,System.SByte!System.Runtime.CompilerServices.IsSignUnspecifiedByte!System.Runtime.CompilerServices.IsConst*)">
+Get another node's value as a string.
+
+</member>
+        <member name="M:SGPropertyNode.getDoubleValue(System.SByte!System.Runtime.CompilerServices.IsSignUnspecifiedByte!System.Runtime.CompilerServices.IsConst*,System.Double)">
+Get another node's value as a double.
+
+</member>
+        <member name="M:SGPropertyNode.getFloatValue(System.SByte!System.Runtime.CompilerServices.IsSignUnspecifiedByte!System.Runtime.CompilerServices.IsConst*,System.Single)">
+Get another node's value as a float.
+
+</member>
+        <member name="M:SGPropertyNode.getLongValue(System.SByte!System.Runtime.CompilerServices.IsSignUnspecifiedByte!System.Runtime.CompilerServices.IsConst*,System.Int32!System.Runtime.CompilerServices.IsLong)">
+Get another node's value as a long int.
+
+</member>
+        <member name="M:SGPropertyNode.getIntValue(System.SByte!System.Runtime.CompilerServices.IsSignUnspecifiedByte!System.Runtime.CompilerServices.IsConst*,System.Int32)">
+Get another node's value as an int.
+
+</member>
+        <member name="M:SGPropertyNode.getBoolValue(System.SByte!System.Runtime.CompilerServices.IsSignUnspecifiedByte!System.Runtime.CompilerServices.IsConst*,System.Boolean)">
+Get another node's value as a bool.
+
+</member>
+        <member name="M:SGPropertyNode.hasValue(System.SByte!System.Runtime.CompilerServices.IsSignUnspecifiedByte!System.Runtime.CompilerServices.IsConst*)">
+Test whether another node has a leaf value.
+
+</member>
+        <member name="M:SGPropertyNode.getType(System.SByte!System.Runtime.CompilerServices.IsSignUnspecifiedByte!System.Runtime.CompilerServices.IsConst*)">
+Get another node's type.
+
+</member>
+        <member name="M:SGPropertyNode.untie">
+Unbind this node from any external data source.
+
+</member>
+        <member name="M:SGPropertyNode.tie(SGRawValue&lt;System.SByte!System.Runtime.CompilerServices.IsSignUnspecifiedByte!System.Runtime.CompilerServices.IsConst**&gt;!System.Runtime.CompilerServices.IsConst*!System.Runtime.CompilerServices.IsImplicitlyDereferenced,System.Boolean)">
+Bind this node to an external string source.
+
+</member>
+        <member name="M:SGPropertyNode.tie(SGRawValue&lt;System.Double&gt;!System.Runtime.CompilerServices.IsConst*!System.Runtime.CompilerServices.IsImplicitlyDereferenced,System.Boolean)">
+Bind this node to an external double source.
+
+</member>
+        <member name="M:SGPropertyNode.tie(SGRawValue&lt;System.Single&gt;!System.Runtime.CompilerServices.IsConst*!System.Runtime.CompilerServices.IsImplicitlyDereferenced,System.Boolean)">
+Bind this node to an external float source.
+
+</member>
+        <member name="M:SGPropertyNode.tie(SGRawValue&lt;System.Int32!System.Runtime.CompilerServices.IsLong&gt;!System.Runtime.CompilerServices.IsConst*!System.Runtime.CompilerServices.IsImplicitlyDereferenced,System.Boolean)">
+Bind this node to an external long int source.
+
+</member>
+        <member name="M:SGPropertyNode.tie(SGRawValue&lt;System.Int32&gt;!System.Runtime.CompilerServices.IsConst*!System.Runtime.CompilerServices.IsImplicitlyDereferenced,System.Boolean)">
+Bind this node to an external int source.
+
+</member>
+        <member name="M:SGPropertyNode.tie(SGRawValue&lt;System.Boolean&gt;!System.Runtime.CompilerServices.IsConst*!System.Runtime.CompilerServices.IsImplicitlyDereferenced,System.Boolean)">
+Bind this node to an external bool source.
+
+</member>
+        <member name="M:SGPropertyNode.isTied">
+Test whether this node is bound to an external data source.
+
+</member>
+        <member name="M:SGPropertyNode.setUnspecifiedValue(System.SByte!System.Runtime.CompilerServices.IsSignUnspecifiedByte!System.Runtime.CompilerServices.IsConst*)">
+Set a value of unspecified type for this node.
+
+</member>
+        <member name="M:SGPropertyNode.setStringValue(System.SByte!System.Runtime.CompilerServices.IsSignUnspecifiedByte!System.Runtime.CompilerServices.IsConst*)">
+Set a string value for this node.
+
+</member>
+        <member name="M:SGPropertyNode.setDoubleValue(System.Double)">
+Set a double value for this node.
+
+</member>
+        <member name="M:SGPropertyNode.setFloatValue(System.Single)">
+Set a float value for this node.
+
+</member>
+        <member name="M:SGPropertyNode.setLongValue(System.Int32!System.Runtime.CompilerServices.IsLong)">
+Set a long int value for this node.
+
+</member>
+        <member name="M:SGPropertyNode.setIntValue(System.Int32)">
+Set an int value for this node.
+
+</member>
+        <member name="M:SGPropertyNode.setBoolValue(System.Boolean)">
+Set a bool value for this node.
+
+</member>
+        <member name="M:SGPropertyNode.getStringValue">
+Get a string value for this node.
+
+</member>
+        <member name="M:SGPropertyNode.getDoubleValue">
+Get a double value for this node.
+
+</member>
+        <member name="M:SGPropertyNode.getFloatValue">
+Get a float value for this node.
+
+</member>
+        <member name="M:SGPropertyNode.getLongValue">
+Get a long int value for this node.
+
+</member>
+        <member name="M:SGPropertyNode.getIntValue">
+Get an int value for this node.
+
+</member>
+        <member name="M:SGPropertyNode.getBoolValue">
+Get a bool value for this node.
+
+</member>
+        <member name="M:SGPropertyNode.getType">
+Get the type of leaf value, if any, for this node.
+
+</member>
+        <member name="M:SGPropertyNode.setAttributes(System.Int32)">
+Set all of the mode attributes for the property node.
+
+</member>
+        <member name="M:SGPropertyNode.getAttributes">
+Get all of the mode attributes for the property node.
+
+</member>
+        <member name="M:SGPropertyNode.setAttribute(SGPropertyNode.Attribute,System.Boolean)">
+Set a single mode attribute for the property node.
+
+</member>
+        <member name="M:SGPropertyNode.getAttribute(SGPropertyNode.Attribute)">
+Check a single mode attribute for the property node.
+
+</member>
+        <member name="M:SGPropertyNode.getNode(System.SByte!System.Runtime.CompilerServices.IsSignUnspecifiedByte!System.Runtime.CompilerServices.IsConst*,System.Int32)">
+ Get a const pointer to another node by relative path.
+
+ This method leaves the index off the last member of the path,
+ so that the user can specify it separate.
+
+</member>
+        <member name="M:SGPropertyNode.getNode(System.SByte!System.Runtime.CompilerServices.IsSignUnspecifiedByte!System.Runtime.CompilerServices.IsConst*)">
+Get a const pointer to another node by relative path.
+
+</member>
+        <member name="M:SGPropertyNode.getNode(System.SByte!System.Runtime.CompilerServices.IsSignUnspecifiedByte!System.Runtime.CompilerServices.IsConst*,System.Int32,System.Boolean)">
+ Get a pointer to another node by relative path.
+
+ This method leaves the index off the last member of the path,
+ so that the user can specify it separately (and save some
+ string building).  For example, getNode("/bar[1]/foo", 3) is
+ exactly equivalent to getNode("bar[1]/foo[3]").  The index
+ provided overrides any given in the path itself for the last
+ component.
+
+</member>
+        <member name="M:SGPropertyNode.getNode(System.SByte!System.Runtime.CompilerServices.IsSignUnspecifiedByte!System.Runtime.CompilerServices.IsConst*,System.Boolean)">
+Get a pointer to another node by relative path.
+
+</member>
+        <member name="M:SGPropertyNode.getRootNode">
+Get a pointer to the root node.
+
+
+Get a const pointer to the root node.
+
+</member>
+        <member name="M:SGPropertyNode.getPath(System.Boolean)">
+Get the path to this node from the root.
+
+</member>
+        <member name="M:SGPropertyNode.getAliasTarget">
+Get a non-const pointer to the current alias target, if any.
+
+
+Get a const pointer to the current alias target, if any.
+
+</member>
+        <member name="M:SGPropertyNode.isAlias">
+Test whether the node's leaf value is aliased to another's.
+
+</member>
+        <member name="M:SGPropertyNode.unalias">
+Remove any alias for this node.
+
+</member>
+        <member name="M:SGPropertyNode.alias(System.SByte!System.Runtime.CompilerServices.IsSignUnspecifiedByte!System.Runtime.CompilerServices.IsConst*)">
+Alias this node's leaf value to another's by relative path.
+
+</member>
+        <member name="M:SGPropertyNode.alias(SGPropertyNode*)">
+Alias this node's leaf value to another's.
+
+</member>
+        <member name="M:SGPropertyNode.removeChildren(System.SByte!System.Runtime.CompilerServices.IsSignUnspecifiedByte!System.Runtime.CompilerServices.IsConst*,System.Boolean)">
+Remove all children with the specified name.
+
+</member>
+        <member name="M:SGPropertyNode.removeChild(System.SByte!System.Runtime.CompilerServices.IsSignUnspecifiedByte!System.Runtime.CompilerServices.IsConst*,System.Int32,System.Boolean)">
+Remove a child node
+
+</member>
+        <member name="M:SGPropertyNode.removeChild(System.Int32,System.Boolean)">
+Remove child by position.
+
+</member>
+        <member name="M:SGPropertyNode.getChildren(System.SByte!System.Runtime.CompilerServices.IsSignUnspecifiedByte!System.Runtime.CompilerServices.IsConst*)">
+Get a vector of all children with the specified name.
+
+</member>
+        <member name="M:SGPropertyNode.getChild(System.SByte!System.Runtime.CompilerServices.IsSignUnspecifiedByte!System.Runtime.CompilerServices.IsConst*,System.Int32)">
+Get a const child node by name and index.
+
+</member>
+        <member name="M:SGPropertyNode.getChild(System.SByte!System.Runtime.CompilerServices.IsSignUnspecifiedByte!System.Runtime.CompilerServices.IsConst*,System.Int32,System.Boolean)">
+Get a child node by name and index.
+
+</member>
+        <member name="M:SGPropertyNode.hasChild(System.SByte!System.Runtime.CompilerServices.IsSignUnspecifiedByte!System.Runtime.CompilerServices.IsConst*,System.Int32)">
+Test whether a named child exists.
+
+</member>
+        <member name="M:SGPropertyNode.getChild(System.Int32)">
+Get a child node by position (*NOT* index).
+
+
+Get a const child node by position (*NOT* index).
+
+</member>
+        <member name="M:SGPropertyNode.nChildren">
+Get the number of child nodes.
+
+</member>
+        <member name="M:SGPropertyNode.getParent">
+Get a non-const pointer to the node's parent.
+
+
+Get a const pointer to the node's parent.
+
+</member>
+        <member name="M:SGPropertyNode.getIndex">
+Get the node's integer index.
+
+</member>
+        <member name="M:SGPropertyNode.getDisplayName(System.Boolean)">
+Get the node's pretty display name, with subscript when needed.
+
+</member>
+        <member name="M:SGPropertyNode.getName">
+Get the node's simple (XML) name.
+
+</member>
+        <member name="M:SGPropertyNode.hasValue">
+Test whether this node contains a primitive leaf value.
+
+</member>
+        <member name="M:SGPropertyNode.Dispose">
+Destructor.
+
+</member>
+        <member name="M:SGPropertyNode.#ctor(SGPropertyNode!System.Runtime.CompilerServices.IsConst*!System.Runtime.CompilerServices.IsImplicitlyDereferenced)">
+Copy constructor.
+
+</member>
+        <member name="M:SGPropertyNode.#ctor">
+Default constructor.
+
+</member>
+        <member name="F:SGPropertyNode.LAST_USED_ATTRIBUTE">
+Last used attribute
+Update as needed when enum Attribute is changed
+
+</member>
+        <member name="T:SGPropertyNode.Attribute">
+ Access mode attributes.
+
+ <p>The ARCHIVE attribute is strictly advisory, and controls
+ whether the property should normally be saved and restored.</p></member>
+        <member name="T:SGPropertyNode.Type">
+Property value types.
+
+</member>
+        <member name="T:SGPropertyChangeListener">
+ The property change listener interface.
+
+ <p>Any class that needs to listen for property changes must implement
+ this interface.</p></member>
+        <member name="T:SGPropertyNode">
+The smart pointer that manage reference counting
+
+
+A node in a property tree.
+
+</member>
+        <member name="M:SGReferenced.op_Assign(SGReferenced!System.Runtime.CompilerServices.IsConst*!System.Runtime.CompilerServices.IsImplicitlyDereferenced)">
+Do not copy reference counts. Each object has it's own counter
+</member>
+        <member name="M:SGReferenced.#ctor(SGReferenced!System.Runtime.CompilerServices.IsConst*!System.Runtime.CompilerServices.IsImplicitlyDereferenced)">
+Do not copy reference counts. Each new object has it's own counter
+</member>
+        <member name="T:SGReferenced">
+Base class for all reference counted SimGear objects
+Classes derived from this one are meant to be managed with
+the SGSharedPtr class.
+For more info see @SGSharedPtr.
+</member>
+        <member name="D:mxChar">
+Typedef required for Unicode support in MATLAB
+
+</member>
+        <member name="D:char16_t">
+UTF-16 character type
+
+</member>
+        <member name="D:mxLogical">
+Maximum mxArray name length
+
+Logical type
+
+</member>
+        <member name="D:mxFunctionPtr">
+Type representing the signature for MEX functions.
+
+</member>
+        <member name="T:mxArray_tag">
+Published incomplete definition of mxArray
+
+</member>
+        <!-- Discarding badly formed XML document comment for member 'M:JSBSim.FGMatrix33.Entry(System.UInt32,System.UInt32)'. -->
+        <!-- Discarding badly formed XML document comment for member 'M:JSBSim.FGMatrix33.Entry(System.UInt32,System.UInt32)'. -->
+        <!-- Discarding badly formed XML document comment for member 'T:JSBSim.FGForce'. -->
+        <!-- Discarding badly formed XML document comment for member 'T:JSBSim.FGAircraft'. -->
+        <!-- Discarding badly formed XML document comment for member 'T:JSBSim.FGMassBalance'. -->
+        <!-- Discarding badly formed XML document comment for member 'M:JSBSim.FGMatrix33.Entry(System.UInt32,System.UInt32)'. -->
+        <!-- Discarding badly formed XML document comment for member 'M:JSBSim.FGMatrix33.Entry(System.UInt32,System.UInt32)'. -->
+        <!-- Discarding badly formed XML document comment for member 'T:JSBSim.FGAircraft'. -->
+        <!-- Discarding badly formed XML document comment for member 'T:JSBSim.FGMassBalance'. -->
+        <!-- Discarding badly formed XML document comment for member 'T:JSBSim.FGForce'. -->
+    </members>
+</doc>

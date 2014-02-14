@@ -1,0 +1,2 @@
+LIBRARY JSBSim_SFunction
+EXPORTS mexFunction

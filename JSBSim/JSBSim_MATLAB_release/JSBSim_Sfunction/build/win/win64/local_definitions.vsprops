@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="Windows-1252"?>
+<VisualStudioPropertySheet
+      ProjectType="Visual C++"
+      Version="8.00"
+      Name="local_definitions"
+      >
+      <UserMacro
+              Name="MATLABPATH"
+              Value="C:\MATLAB\R2010a"
+              PerformEnvironmentSet="true"
+      />
+</VisualStudioPropertySheet>

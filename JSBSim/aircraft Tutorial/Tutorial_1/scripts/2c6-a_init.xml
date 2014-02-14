@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<initialize name="2c6-a_init">
+
+  <!-- This file sets up the aircraft initial conditions. -->
+  <altitude unit="FT">  4779.0  </altitude>
+  <vc unit="KTS">        191.0  </vc>
+  <phi unit="DEG">         0.0  </phi>
+  <psi unit="DEG">         0.0  </psi>
+  <beta unit="DEG">        0.0  </beta>
+  <gamma unit="DEG">       0.0  </gamma>
+  <running>                -1   </running>
+</initialize>
+
+<!--  These are the parameters that can be set in an initialization file
+  <latitude unit="DEG">   48.0  </latitude>
+  <longitude unit="DEG"> -97.0  </longitude>
+    <latitude unit="DEG">        </latitude>
+    <longitude    unit="DEG">        </longitude>
+    <elevation    unit="FT">        </elevation>
+    <altitude unit="FT">        </altitude>        This is feet above ground level 
+    <altitudeAGL unit="FT">        </altitudeAGL>    This is feet above ground level 
+    <altitudeMSL unit="FT">        </altitudeMSL>    This is feet above sea level
+    <ubody unit="FPS">            </ubody>
+    <vbody unit="FPS">            </vbody>
+    <wbody unit="FPS">            </wbody>
+    <vnorth unit="FPS">            </vnorth>
+    <veast unit="FPS">            </veast>
+    <vdown unit="FPS">            </vdown>
+    <winddir unit="DEG">        </winddir>
+    <vwind unit="KTS?>            </vwind>
+    <hwind unit="KTS?>            </hwind>
+    <xwind unit="KTS?>            </xwind>
+    <vc unit="KTS?>                </vc>    
+    <vt unit="KTS?>                </vt>
+    <mach>                        </mach>
+    <phi unit="DEG">            </phi>
+    <theta unit="DEG">            </theta>
+    <psi unit="DEG">            </psi>
+    <alpha unit="DEG">            </alpha>
+    <beta unit="DEG">            </beta>
+    <gamma unit="DEG">            </gamma>
+    <roc units="FT/SEC">        </roc>
+    <vground units="KTS">        </vground>
+    <targetNlf>                    </targetNlf>
+    
+  // Check to see if any engines are specified to be initialized in a running state
+  FGPropulsion* propulsion = fdmex->GetPropulsion();
+  Element* running_elements = document->FindElement("running");
+  while (running_elements) {
+    n = int(running_elements->GetDataAsNumber());
+    propulsion->InitRunning(n);
+    running_elements = document->FindNextElement("running");
+  }
+-->

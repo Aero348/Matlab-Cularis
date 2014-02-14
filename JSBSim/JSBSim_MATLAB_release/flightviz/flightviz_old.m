@@ -1,0 +1,129 @@
+function [fig] = flightviz(euler,vel,alt,mach,acc,elevator,aileron,rudder,flap)
+%  Display F4 Phantom aircraft orientation and flight information
+% 
+%  function fig = flightviz(euler,vel,alt,mach,acc,elevator,aileron,rudder,flap)
+%
+%  Creates a display in the next available figure of an F4 Phantom jet
+%  with some bar meters to display altitude, mach number and g's.
+%
+%  The inputs are as follows...
+%  euler : euler angles [phi theta psi] in radians
+%  vel   : velocity vector [vx vy vz]
+%  alt   : altitude in meters
+%  mach  : Mach number
+%  acc   : acceleration in g's
+%  elevator : elevator angle in radians, positive deflection causes pitch up
+%  aileron : aileron angle in radians, positive deflection is port wing down
+%  rudder   : rudder angle in radians, positive deflection is nose right
+%  flap     : flap angle in radians
+%
+%  Returns the number of the figure used.
+%
+%  Not all inputs need to be specified as there are zero default values.
+%
+%  Typically one would use this inside a loop to display flight data as an
+%  animation. Just remember to call drawnow to force each frame to update.
+%
+%  Example:
+%  % create a figure and draw the aircraft
+%  fig = flightviz;
+%  % update the figure
+%  fig = flightviz([0 10 90]*pi/180,[0 1 0.1],1000,0.4,1,5*pi/180,0,0,30*pi/180);
+%
+%  see also:
+%  <a href="matlab: help plotAxes">plotAxes</a>, <a href="matlab: help plotTraj">plotTraj</a>, <a href="matlab: help drawModel">drawModel</a>, <a href="matlab: help updateModel">updateModel</a>
+
+% Default settings
+if ~exist('vel','var'),     vel = [0 0 0];   end;
+if ~exist('euler','var'),   euler = [0 0 0]; end;
+if ~exist('alt','var'),     alt = 0;         end;
+if ~exist('mach','var'),    mach = 0;        end;
+if ~exist('acc','var'),     acc = 0;         end;
+if ~exist('elevator','var'),elevator = 0;    end;
+if ~exist('aileron','var'), aileron = 0;     end; 
+if ~exist('rudder','var'),  rudder = 0;      end;
+if ~exist('flap','var'),    flap  = 0;       end;
+
+% check for existence of figure
+fig = findobj(0,'type','fig','tag','flightviz');
+% create figure
+if isempty(fig),
+  fig = figure; 
+  set(fig,'tag','flightviz','name','Flight Viz','numberTitle','off');
+
+  % axis circles
+  h.ax = plotAxes(fig,[0 0 0],9.5,3);
+  % trajectory arrow
+  h.trj = plotTraj(fig,[0 0 0],9);
+  % Phantom model
+  model = drawModel(fig,'Phantom'); 
+  axis equal; 
+  camlight('headlight');
+
+  % bar meters
+  [h.alt] = GTbarmeter(0,3000,'Alt (km)','right',1);
+  [h.acc] = GTbarmeter(-6,8,'G''s','left',0);
+  [h.mach] = GTbarmeter(0,2.5,'Mach','bottom',0);
+
+  % create handle to phantom
+  h.body = struct('hgt',model.hgt.all,'ref',model.ref.all);
+
+  % create handle to elevator
+  h.elevp = struct('hgt',model.hgt.body.elevp,'ref',model.ref.body.elevp);
+  h.elevs = struct('hgt',model.hgt.body.elevs,'ref',model.ref.body.elevs);
+
+  % create handle to flaps
+  h.flapp = struct('hgt',model.hgt.body.port_flap1,'ref',model.ref.body.port_flap1);
+  h.flaps = struct('hgt',model.hgt.body.star_flap1,'ref',model.ref.body.star_flap1);
+
+  % create handle to ailerons
+  h.ailp = struct('hgt',model.hgt.body.port_flap2,'ref',model.ref.body.port_flap2);
+  h.ails = struct('hgt',model.hgt.body.star_flap2,'ref',model.ref.body.star_flap2);
+
+  % create handle to rudder
+  h.tail = struct('hgt',model.hgt.body.tail,'ref',model.ref.body.tail);
+
+  % save handles for later
+  set(fig,'userdata',h);
+
+  % nice camera position
+  campos([ -140  60  -70]);
+  % add some light from above
+  camlight(0,80);
+
+end;
+
+% get handles from figure
+h = get(fig,'userdata');
+
+% update information
+plotAxes(h.ax,euler);
+plotTraj(h.trj,vel);
+
+% update aircraft rotation
+updateModel(h.body,[0 0 0],euler);
+
+% move elevators
+updateModel(h.elevp,[0 0 0],[0 -elevator 0]);
+updateModel(h.elevs,[0 0 0],[0 -elevator  0]);
+
+% move flaps
+updateModel(h.flapp,[0 0 0],[0 flap 0]);
+updateModel(h.flaps,[0 0 0],[0 flap 0]);
+
+% move ailerons
+updateModel(h.ailp,[0 0 0],[0 -aileron 0]);
+updateModel(h.ails,[0 0 0],[0  aileron 0]);
+
+% move rudder
+updateModel(h.tail,[0 0 0],[0 0 -rudder]);
+
+% update barmeters
+GTbarmeter(h.alt,alt/1000);
+GTbarmeter(h.acc,acc);
+GTbarmeter(h.mach,mach);
+
+% force draw
+drawnow;
+fprintf('\n');
+fprintf('\nFlightViz called...');

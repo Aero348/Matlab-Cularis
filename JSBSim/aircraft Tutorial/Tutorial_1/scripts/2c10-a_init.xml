@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<initialize name="2d2-a_init">
+
+  <!-- This file sets up the aircraft initial conditions. -->
+  <altitude unit="FT">  9624.0  </altitude>
+  <vc unit="KTS">        157.0  </vc>
+  <gamma unit="DEG">       0.0  </gamma>
+  <phi unit="DEG">         0.0  </phi>
+  <psi unit="DEG">         0.0  </psi>
+  <beta unit="DEG">        0.0  </beta>
+  <running>                 -1  </running>
+</initialize>
+
+<!--  These are the parameters that can be set in an initialization file
+    <latitude unit="DEG">        </latitude>
+    <longitude    unit="DEG">        </longitude>
+    <elevation    unit="FT">        </elevation>
+    <altitude unit="FT">        </altitude>        This is feet above ground level 
+    <altitudeAGL unit="FT">        </altitudeAGL>    This is feet above ground level 
+    <altitudeMSL unit="FT">        </altitudeMSL>    This is feet above sea level
+    <ubody unit="FPS">            </ubody>
+    <vbody unit="FPS">            </vbody>
+    <wbody unit="FPS">            </wbody>
+    <vnorth unit="FPS">            </vnorth>
+    <veast unit="FPS">            </veast>
+    <vdown unit="FPS">            </vdown>
+    <winddir unit="DEG">        </winddir>
+    <vwind unit="KTS?>            </vwind>
+    <hwind unit="KTS?>            </hwind>
+    <xwind unit="KTS?>            </xwind>
+    <vc unit="KTS?>                </vc>    
+    <vt unit="KTS?>                </vt>
+    <mach>                        </mach>
+    <phi unit="DEG">            </phi>
+    <theta unit="DEG">            </theta>
+    <psi unit="DEG">            </psi>
+    <alpha unit="DEG">            </alpha>
+    <beta unit="DEG">            </beta>
+    <gamma unit="DEG">            </gamma>
+    <roc units="FT/SEC">        </roc>
+    <vground units="KTS">        </vground>
+    <targetNlf>                    </targetNlf>
+    
+    <running> n </running>
+    where n is engine number (0 based) or -1 for all engines
+  }
+-->
