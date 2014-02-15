@@ -1,0 +1,49 @@
+% This file will calculate data required for Aero 348 Practical Project
+
+% Last Update: 14 Feb 2014 
+
+function Cularis_Analysis
+
+clc;
+clear all;
+close all;
+
+%%%% Aircraft Model
+
+%% Nonlinear Model
+Nonlinear = false;
+
+if Nonlinear     
+    % Calc stability and control coefficients
+    cd('Functions');
+end
+
+%% Linearized Model
+Linearized = false
+
+if Linearized         
+    % Compute stable and control derivatives
+    % Longitudinal and lat eqn of motion
+    cd('Functions');
+    % LinearizedModel()
+end
+
+
+
+
+%% Aircraft Performance
+Performace = false;
+
+if Performance
+    %
+    cd('Functions');
+end
+
+%% Aircraft Stability Characteristics
+Stability = false;
+
+if Stability
+    %
+    cd('Functions');
+end
+end

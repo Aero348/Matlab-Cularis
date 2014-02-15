@@ -12,18 +12,19 @@
 %  DO NOT ASSUME: phi0 = w0 = alpha0 = theta0 = 0
 
 function LinearizedModel()
-g = 9.80665 % gravitational acceleraion [m/s^2]
+g = 9.80665 % Gravitational Acceleraion [m/s^2]
 
-m      = % plane mass [kg]
-q0     = % [rad/s]   
-w0     = %
-r0     = % [rad/s]
-v0     = %
-D0     = %
-alpha0 = %[rad]
-beta0  = %
-L0     = %
-T0     = %
+m     = % Total Mass [kg]
+q0    = % [rad/s]   
+w0    = %
+r0    = % [rad/s]
+v0    = %
+D0    = %
+alpha = % Angle of Attack [rad]
+beta  = % Side Slip Angle [rad]
+mu    = % Roll Angle [rad]
+L0    = %
+T     = %
 
 m(q0*w0-r0*v0) = -m*g*sin(theta0)-D0*cos(alpha0)*cos(beta0) + L0*sin(
 
